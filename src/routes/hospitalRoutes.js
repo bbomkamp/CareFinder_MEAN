@@ -4,7 +4,7 @@ let hospitalController = require('../controllers/hospitalController');
 
 
 router.get('/',  hospitalController.findAllHospitals);
-// router.get('/id/:providerId', hospitalController.findProviderId);
+router.get('/id/:providerId', hospitalController.findProviderId);
 // router.get('/name/:hospitalName',  hospitalController.findHospitalName);
 // router.get('/city/:cityName',  hospitalController.findCity);
 // router.get('/state/:stateName',  hospitalController.findState);

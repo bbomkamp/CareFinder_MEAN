@@ -37,8 +37,8 @@ server.use(helmet())
  * Ruby-like logger for logging messages
  * https://www.npmjs.com/package/logger
  */
-// const logger = require('morgan');
-// server.use(logger('dev'));
+ const logger = require('morgan');
+ server.use(logger('dev'));
 
 /*
  * Database object modelling
@@ -46,9 +46,11 @@ server.use(helmet())
  */
 const mongoose = require('mongoose')
 
+require('dotenv').config()
+
 // Connect to the Mongo database
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb+srv://brad:brad@hospitalscluster.33ifw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true }, function (error) {
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, function (error) {
     if (error) console.log(error);
     console.log("connection to DB successful");
 })
@@ -58,7 +60,7 @@ mongoose.connect('mongodb+srv://brad:brad@hospitalscluster.33ifw.mongodb.net/myF
 
 const apiRoutes = require('./src/routes/hospitalRoutes')
 
-server.use('/api', apiRoutes)
+server.use('/api/hospitals', apiRoutes)
 
 // Handle errors
 // -------------
