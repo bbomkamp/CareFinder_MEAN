@@ -3,15 +3,22 @@ let router = express.Router();
 let hospitalController = require('../controllers/hospitalController');
 
 
+router.get('', hospitalController.find);
+// router.post('',  hospitalController.post);
+// router.put('',  hospitalController.put);
+// router.delete('',  hospitalController.delete);
+
+/*
 router.get('/',  hospitalController.findAllHospitals);
-router.get('/id/:providerId', hospitalController.findProviderId);
-// router.get('/name/:hospitalName',  hospitalController.findHospitalName);
-// router.get('/city/:cityName',  hospitalController.findCity);
-// router.get('/state/:stateName',  hospitalController.findState);
-// router.get('/county/:countyName', hospitalController.findCounty);
-// router.get('/type/:hospitalType',  hospitalController.findHospitalType);
-// router.get('/ownership/:hospitalOwner',  hospitalController.findHospitalOwner);
-// router.get('/emergency/:hospitalEmergency',  hospitalController.findHospitalEmergency);
+router.get('/id', hospitalController.findProviderId);
+router.get('/name',  hospitalController.findHospitalName);
+router.get('/city',  hospitalController.findCity);
+router.get('/state',  hospitalController.findState);
+router.get('/county', hospitalController.findCounty);
+router.get('/type',  hospitalController.findHospitalType);
+router.get('/ownership',  hospitalController.findHospitalOwner);
+router.get('/emergency/:hospitalEmergency',  hospitalController.findHospitalEmergency);
+*/
 
 
 
