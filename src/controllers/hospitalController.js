@@ -1,18 +1,60 @@
 let errorHandler = require("../middleware/error-handlers");
 const hospital = require('../models/hospitalModel');
+const {response} = require("express");
 
 
 // GET Calls
 exports.find = async (req, res) => {
 
-    // If no request query parameters are included, return all hospitals from database.
-    console.log(Object.keys(req.query))
+    // If no request query is included, return all hospitals from database.
     if (Object.keys(req.query).length === 0){
         await hospital.find({}).exec().then(response => res.json(response))
             .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
 
-        // If the request query is "providerId", return hospital with matching "providerId".
-    } else if (Object.keys(req.query).toString() === "providerId"){
+
+    } else if (Object.keys(req.query).length === 1){
+        switch (Object.keys(req.query)[0]){
+            case 'providerId': hospital.find({providerId: req.query.providerId}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+            case 'name': hospital.find({name: req.query.name}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+            case 'city': hospital.find({city: req.query.city}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+            case 'state': hospital.find({state: req.query.state}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+            case 'zipCode': hospital.find({zipCode: req.query.zipCode}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+            case 'county': hospital.find({county: req.query.county}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+            case 'phoneNumber': hospital.find({phoneNumber: req.query.phoneNumber}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+            case 'hospitalType': hospital.find({hospitalType: req.query.hospitalType}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+            case 'ownership': hospital.find({ownership: req.query.ownership}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+            case 'emergencyServices': hospital.find({emergencyServices: req.query.emergencyServices}).exec().then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+                break
+        }
+    }
+    else {
+        errorHandler.invalidRoute()
+    }}
+// GET Calls END
+
+
+
+   /* // If the request query is "providerId", return hospital with matching "providerId".
+    else if (Object.keys(req.query).toString() === "providerId"){
         await hospital.find({providerId: req.query.providerId}).exec().then(response => res.json(response))
             .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
 
@@ -61,7 +103,7 @@ exports.find = async (req, res) => {
         await hospital.find({emergencyServices: req.query.emergencyServices}).exec().then(response => res.json(response))
             .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
     }
-}
+}*/
 
 /*
 exports.findAllHospitals = async (req, res) => {
