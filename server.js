@@ -56,15 +56,11 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, function 
 })
 
 // Set up the routes
-// -----------------
-
 const apiRoutes = require('./src/routes/hospitalRoutes')
 
 server.use('/api/hospitals', apiRoutes)
 
 // Handle errors
-// -------------
-
 const errorHandlers = require('./src/middleware/error-handlers')
 
 // Catch all invalid routes

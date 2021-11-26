@@ -4,9 +4,12 @@ let hospitalController = require('../controllers/hospitalController');
 
 
 router.get('', hospitalController.find);
-// router.post('',  hospitalController.post);
-// router.put('',  hospitalController.put);
-// router.delete('',  hospitalController.delete);
+//router.put('',  hospitalController.put);
+//router.delete('',  hospitalController.delete);
+router.post('',  hospitalController.post);
+
+
+
 
 /*
 router.get('/',  hospitalController.findAllHospitals);

@@ -11,7 +11,8 @@ exports.find = async (req, res) => {
         await hospital.find({}).exec().then(response => res.json(response))
             .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
 
-
+    // Switch statements for all the different searchable categories.
+    // Works faster than the if statement.
     } else if (Object.keys(req.query).length === 1){
         switch (Object.keys(req.query)[0]){
             case 'providerId': hospital.find({providerId: req.query.providerId}).exec().then(response => res.json(response))
@@ -51,9 +52,29 @@ exports.find = async (req, res) => {
     }}
 // GET Calls END
 
+// POST Calls
+exports.post = async (req, res) => {
+    console.log(req.body);
+   await hospital.insertMany(req.body).then(response => res.json(response))
+       .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+}
 
 
-   /* // If the request query is "providerId", return hospital with matching "providerId".
+// PUT Calls
+// exports.put = async (req, res) => {
+//     hospital.findOneAndUpdate({providerId: req.query.providerId}, req.body).exec().then(response => res.json(response))
+//         .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+// }
+
+
+
+
+
+
+
+
+
+/* // If the request query is "providerId", return hospital with matching "providerId".
     else if (Object.keys(req.query).toString() === "providerId"){
         await hospital.find({providerId: req.query.providerId}).exec().then(response => res.json(response))
             .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
