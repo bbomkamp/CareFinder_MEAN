@@ -52,7 +52,48 @@ exports.find = async (req, res) => {
     }}
 // GET Calls END
 
-// POST Calls
+
+// DELETE Calls
+exports.delete = async (req, res) => {
+    switch (Object.keys(req.query)[0]){
+        case 'providerId':
+            hospital.deleteMany({providerId: req.query.providerId}).then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+        case 'name':
+            hospital.deleteMany({name: req.query.name}).then(response => res.json(response))
+                .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+        case 'city': hospital.deleteMany({city: req.query.city}).exec().then(response => res.json(response))
+            .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+        case 'state': hospital.deleteMany({state: req.query.state}).exec().then(response => res.json(response))
+            .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+        case 'zipCode': hospital.deleteMany({zipCode: req.query.zipCode}).exec().then(response => res.json(response))
+            .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+        case 'county': hospital.deleteMany({county: req.query.county}).exec().then(response => res.json(response))
+            .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+        case 'phoneNumber': hospital.deleteMany({phoneNumber: req.query.phoneNumber}).exec().then(response => res.json(response))
+            .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+        case 'hospitalType': hospital.deleteMany({hospitalType: req.query.hospitalType}).exec().then(response => res.json(response))
+            .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+        case 'ownership': hospital.deleteMany({ownership: req.query.ownership}).exec().then(response => res.json(response))
+            .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+        case 'emergencyServices': hospital.deleteMany({emergencyServices: req.query.emergencyServices}).exec().then(response => res.json(response))
+            .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+            break
+    }
+}
+// DELETE Calls END
+
+
+// POST Calls for creating a new hospital entry in the DB
 exports.post = async (req, res) => {
    await hospital.insertMany(req.body).then(response => res.json(response))
        .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
