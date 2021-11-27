@@ -54,17 +54,16 @@ exports.find = async (req, res) => {
 
 // POST Calls
 exports.post = async (req, res) => {
-    console.log(req.body);
    await hospital.insertMany(req.body).then(response => res.json(response))
        .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
 }
 
 
-// PUT Calls
-// exports.put = async (req, res) => {
-//     hospital.findOneAndUpdate({providerId: req.query.providerId}, req.body).exec().then(response => res.json(response))
-//         .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
-// }
+// PUT Call for updating the providerId.
+exports.put = async (req, res) => {
+    hospital.findOneAndUpdate({providerId: req.query.providerId}, req.body).exec().then(response => res.json(response))
+        .catch(err => errorHandler.invalidRoute(400, 'database', res, err.message))
+}
 
 
 
