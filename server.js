@@ -55,14 +55,17 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, function 
     if (error) console.log(error);
     console.log("connection to DB successful");
 })
-
-// Set up the routes
-const apiRoutes = require('./src/routes/hospitalRoutes')
-
-server.use('/api/hospitals', apiRoutes)
-
 // Handle errors
 const errorHandlers = require('./src/middleware/error-handlers')
+
+
+// Set up the routes
+const apiRoutes = require('./src/routes');
+
+server.use('/api', apiRoutes)
+server.use('/*', errorHandlers.invalidRoute);
+
+
 
 // Catch all invalid routes
 server.use(errorHandlers.invalidRoute)

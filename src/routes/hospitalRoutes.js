@@ -9,8 +9,6 @@ router.delete('',  hospitalController.delete);
 router.post('',  hospitalController.post);
 
 
-
-
 /*
 router.get('/',  hospitalController.findAllHospitals);
 router.get('/id', hospitalController.findProviderId);
@@ -22,7 +20,6 @@ router.get('/type',  hospitalController.findHospitalType);
 router.get('/ownership',  hospitalController.findHospitalOwner);
 router.get('/emergency/:hospitalEmergency',  hospitalController.findHospitalEmergency);
 */
-
 
 
 module.exports = router;
