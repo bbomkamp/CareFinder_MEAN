@@ -1,6 +1,5 @@
 let errorHandler = require("../middleware/error-handlers");
 const hospital = require('../models/hospitalModel');
-const {response} = require("express");
 
 
 // GET Calls
@@ -50,7 +49,7 @@ exports.find = async (req, res) => {
     else {
         errorHandler.invalidRoute()
     }}
-// GET Calls END
+
 
 
 // DELETE Calls
@@ -90,7 +89,7 @@ exports.delete = async (req, res) => {
             break
     }
 }
-// DELETE Calls END
+
 
 
 // POST Calls for creating a new hospital entry in the DB
