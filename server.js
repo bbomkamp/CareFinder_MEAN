@@ -53,7 +53,7 @@ require('dotenv').config()
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, function (error) {
     if (error) console.log(error);
-    console.log("connection to DB successful");
+    console.log("Connected To DB");
 })
 // Handle errors
 const errorHandlers = require('./src/middleware/error-handlers')
