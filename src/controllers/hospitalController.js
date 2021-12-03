@@ -9,10 +9,6 @@ const hospital = require('../models/hospitalModel');
  * If the query is empty (length of 0) then all Hospitals will be retrieved.
  * A switch statement is used to identify the query and return any and all
  * resources (hospital(s)) with that particular query value.
- *
- * @param req
- * @param res
- * @returns {Promise<void>}
  */
 exports.find = async (req, res) => {
 
@@ -68,10 +64,6 @@ exports.find = async (req, res) => {
  * Removes a resource (hospital) from the DataBase.
  * A switch statement is used to identify the query and delete any and
  * all resources (hospital(s)) with the particular query value.
- *
- * @param req
- * @param res
- * @returns {Promise<void>}
  */
 exports.delete = async (req, res) => {
     switch (Object.keys(req.query)[0]){
@@ -116,10 +108,6 @@ exports.delete = async (req, res) => {
  *
  * Creates a new resource (hospital) in the Database.
  * Resource is sent in the body of the request.
- *
- * @param req
- * @param res
- * @returns {Promise<void>}
  */
 exports.post = async (req, res) => {
    await hospital.insertMany(req.body).then(response => res.json(response))
@@ -132,10 +120,6 @@ exports.post = async (req, res) => {
  *
  * Updates or replaces resources on the server if the resources exist.
  * The resource available to update is the providerId.
- *
- * @param req
- * @param res
- * @returns {Promise<void>}
  */
 exports.put = async (req, res) => {
     hospital.findOneAndUpdate({providerId: req.query.providerId}, req.body).exec().then(response => res.json(response))

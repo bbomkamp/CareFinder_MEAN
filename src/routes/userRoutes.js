@@ -14,15 +14,13 @@ router.post('./login', userController.login);
  * GET Request
  */
 router.get('/allUsers', userController.allUsers);
-
+router.get('/aUser', userController.aUser);
 
 /**
  * DELETE Request
  */
 router.delete('/deleteAllUsers', userController.deleteAllUsers);
 router.delete('/deleteUser', userController.deleteUser);
-
-
 
 
 

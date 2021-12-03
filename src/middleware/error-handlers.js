@@ -40,3 +40,4 @@ exports.validationErrors = (err, req, res, next) => {
     data: {}
   })
 }
+

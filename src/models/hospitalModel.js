@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+/**
+ * Hospital Model
+ */
 const hospitalSchema = new mongoose.Schema({
     providerId: {type: String},
     name: {type: String},

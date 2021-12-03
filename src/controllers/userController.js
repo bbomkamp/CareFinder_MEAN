@@ -6,11 +6,6 @@ require('dotenv').config();
 
 /**
  * Saves new User to the Database.
- *
- *
- * @param req
- * @param res
- * @returns {Promise<void>}
  */
 exports.createUser = async (req, res) => {
     try {
@@ -29,10 +24,6 @@ exports.createUser = async (req, res) => {
  * First it checks the Database if the email exist within the Database.
  * Then the password is hashed and checked for validation.
  * If the password passes validation a new token is signed and sent to client.
- *
- * @param req
- * @param res
- * @returns {Promise<void>}
  */
 exports.login = async (req, res) => {
 
@@ -65,10 +56,6 @@ exports.login = async (req, res) => {
 
 /**
  * Returns all Users held in Database.
- *
- * @param req
- * @param res
- * @returns {Promise<void>}
  */
 exports.allUsers = async  (req, res) => {
     const users = await User.find({}).exec();
@@ -78,18 +65,23 @@ exports.allUsers = async  (req, res) => {
 
 
 exports.deleteAllUsers = async (req, res) => {
-
+//WORK ON THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
 /**
  * Deletes a single User of choice.
  * The User is found by email and then removed from the DataBase.
- *
- * @param req
- * @param res
- * @returns {Promise<void>}
  */
 exports.deleteUser = async (req, res) => {
      User.deleteOne({email: req.query.email
     }).exec().then(res.status(204).send()).catch(reason => res.send(reason));
+}
+
+/**
+ * Finds a single User.
+ * The User is found by email which is sent in the body of the request.
+ */
+exports.aUser = async (req, res) => {
+    const user = await User.find({email: req.body.email}).exec();
+    await res.json(user);
 }
