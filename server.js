@@ -49,6 +49,12 @@ const mongoose = require('mongoose')
 
 require('dotenv').config()
 
+/*
+bring cors in
+ */
+const cors = require("cors");
+server.use(cors())
+
 // Connect to the Mongo database
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, function (error) {

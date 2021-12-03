@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
 const errorHandler = require("../middleware/error-handlers");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
@@ -8,13 +9,27 @@ require('dotenv').config();
  * Saves new User to the Database.
  */
 exports.createUser = async (req, res) => {
+
     try {
-        const user = new User(req.body);
+
+        const emailExists = await User.findOne({email: req.body.email});
+        if (emailExists) return res.status(409).send("Email already exists");
+
+        const salt = bcrypt.genSaltSync(10)
+        const hashedPassword = bcrypt.hashSync(req.body.password, salt)
+
+        let userToSave = {
+            email: req.body.email,
+            password: hashedPassword,
+            role: req.body.role
+        }
+
+        const user = new User(userToSave);
         await user.save().then(() => {
             res.status(201).send("User Successfully Created");
         }).catch(x => res.send(x));
     } catch (e) {
-        errorHandler.catchErrors(400)
+        res.status(400).send("Bad Request")
     }
 };
 
@@ -29,7 +44,6 @@ exports.login = async (req, res) => {
 
    try {
       await User.findOne({email: req.body.email}).then(response => {
-
           // If the response from the database is null, the user does not exist.
          if (response == null) {
             return res.status(404).send('User Does Not Exist.');
@@ -41,10 +55,8 @@ exports.login = async (req, res) => {
             return res.status(401).send({auth: false, token: null});
          }
          else {
-            let token = jwt.sign({id: response._id}, process.env.KEY, {
-                // Token expires in 12 hours
-                expiresIn: 43200
-            });
+            let token = jwt.sign({id: response._id}, process.env.KEY);
+            // TODO: Return user info
             res.status(200).send({auth: true, token: token, admin: response.admin});
          }
       }).catch(reason => res.send(reason));
@@ -63,9 +75,11 @@ exports.allUsers = async  (req, res) => {
 };
 
 
-
+/**
+ * Deletes all User in the DataBase.
+ */
 exports.deleteAllUsers = async (req, res) => {
-//WORK ON THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    User.deleteMany({}).exec().then(res.status(204).send()).catch(reason => res.send(reason));
 }
 
 /**
