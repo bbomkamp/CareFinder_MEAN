@@ -1,8 +1,12 @@
 let jwt = require('jsonwebtoken');
 require('dotenv').config();
-let errorHandler = require('../middleware/error-handlers');
 let User = require('../models/userModel');
 
+/**
+ * Verify Admin Status
+ *
+ * The User is searched by ID.
+ */
 exports.verifyAdmin = async (req, res, next) => {
     const user = await User.findById(req.userId).exec();
     if (!user)
@@ -12,7 +16,11 @@ exports.verifyAdmin = async (req, res, next) => {
     next()
 }
 
-
+/**
+ * Verify JWT Token
+ *
+ * Token is received in Headers.
+ */
 exports.verifyToken = async (req, res, next) => {
     try {
         let token = req.headers.authorization;

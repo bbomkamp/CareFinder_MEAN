@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
          }
          else {
             let token = jwt.sign({id: response._id}, process.env.KEY);
-            // TODO: Return user info
+            // TODO: Return user info for client
             res.status(200).send({auth: true, token: token, admin: response.admin});
          }
       }).catch(reason => res.send(reason));

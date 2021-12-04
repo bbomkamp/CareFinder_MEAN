@@ -15,13 +15,13 @@ router.post('/login', userController.login);
  * GET Request
  */
 router.get('/allUsers', jwtHandler.verifyToken, jwtHandler.verifyAdmin, userController.allUsers);
-router.get('/aUser', userController.aUser);
+router.get('/aUser', jwtHandler.verifyToken, jwtHandler.verifyAdmin, userController.aUser);
 
 /**
  * DELETE Request
  */
-router.delete('/deleteAllUsers', userController.deleteAllUsers);
-router.delete('/deleteUser', userController.deleteUser);
+router.delete('/deleteAllUsers', jwtHandler.verifyToken, jwtHandler.verifyAdmin, userController.deleteAllUsers);
+router.delete('/deleteUser', jwtHandler.verifyToken, jwtHandler.verifyAdmin, userController.deleteUser);
 
 
 
