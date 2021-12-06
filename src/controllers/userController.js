@@ -26,7 +26,7 @@ exports.createUser = async (req, res) => {
 
         const user = new User(userToSave);
         await user.save().then(() => {
-            res.status(201).send("User Successfully Created");
+            res.status(200).send("User Successfully Created");
         }).catch(x => res.send(x));
     } catch (e) {
         res.status(400).send("Bad Request")
@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
             return res.status(401).send({auth: false, token: null});
          }
          else {
-            let token = jwt.sign({id: response._id}, process.env.KEY);
+            let token = jwt.sign({email: response.email}, process.env.KEY);
             // TODO: Return user info for client
             res.status(200).send({auth: true, token: token, admin: response.admin});
          }
@@ -87,7 +87,7 @@ exports.deleteAllUsers = async (req, res) => {
  * The User is found by email and then removed from the DataBase.
  */
 exports.deleteUser = async (req, res) => {
-     User.deleteOne({email: req.query.email
+     User.deleteOne({email: req.body.email
     }).exec().then(res.status(204).send()).catch(reason => res.send(reason));
 }
 
@@ -96,6 +96,7 @@ exports.deleteUser = async (req, res) => {
  * The User is found by email which is sent in the body of the request.
  */
 exports.aUser = async (req, res) => {
-    const user = await User.find({email: req.body.email}).exec();
-    await res.json(user);
+    console.log(req.body.email);
+    let user = await User.findOne({email: req.body.email}).exec();
+    await res.json(user)
 }

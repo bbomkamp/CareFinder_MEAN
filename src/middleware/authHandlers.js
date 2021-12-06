@@ -8,13 +8,13 @@ let User = require('../models/userModel');
  * The User is searched by ID.
  */
 exports.verifyAdmin = async (req, res, next) => {
-    const user = await User.findById(req.userId).exec();
+    const user = await User.find({email: req.userEmail}).exec();
     if (!user)
-        res.status(403).send({ message: 'No User Found' });
-    if(!(user.role === "ADMIN"))
-        await res.json({status: 401, message: 'You\'re not an admin'});
+        res.status(403).send({ auth: false, message: 'Not an User.' });
+    if(user.admin===false)
+        await res.json({status: 403, auth: false, message: 'Not an Admin.'});
     next()
-}
+};
 
 /**
  * Verify JWT Token
@@ -31,7 +31,7 @@ exports.verifyToken = async (req, res, next) => {
                 if (err) {
                     res.status(401).send("Unauthorized")
                 } else {
-                    req.userId = decoded.id;
+                    req.userEmail = decoded.email;
                     next();
                 }
             });
