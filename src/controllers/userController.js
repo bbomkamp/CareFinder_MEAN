@@ -96,7 +96,6 @@ exports.deleteUser = async (req, res) => {
  * The User is found by email which is sent in the body of the request.
  */
 exports.aUser = async (req, res) => {
-    console.log(req.body.email);
     let user = await User.findOne({email: req.body.email}).exec();
     await res.json(user)
 }

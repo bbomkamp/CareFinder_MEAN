@@ -10,9 +10,9 @@ let User = require('../models/userModel');
 exports.verifyAdmin = async (req, res, next) => {
     const user = await User.find({email: req.userEmail}).exec();
     if (!user)
-        res.status(403).send({ auth: false, message: 'Not an User.' });
+        res.status(403).send({ auth: false, message: 'Your User Email cannot be found.' });
     if(user.admin===false)
-        await res.json({status: 403, auth: false, message: 'Not an Admin.'});
+        await res.json({status: 403, auth: false, message: 'You are not an Admin.'});
     next()
 };
 

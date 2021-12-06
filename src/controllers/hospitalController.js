@@ -54,7 +54,7 @@ exports.find = async (req, res) => {
         }
     }
     else {
-        errorHandler.invalidRoute()
+        errorHandler.invalidRoute(400)
     }}
 
 
